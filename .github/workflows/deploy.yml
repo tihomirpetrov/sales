@@ -34,4 +34,4 @@ jobs:
       with:
         folder: dist/sales
         branch: gh-pages
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.DEPLOY_TOKEN }}
