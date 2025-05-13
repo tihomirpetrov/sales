@@ -1,0 +1,1 @@
+import{Hb as p,ab as o,pb as n,qb as s}from"./chunk-RQ4QXQ7R.js";var c=class e{static \u0275fac=function(t){return new(t||e)};static \u0275cmp=o({type:e,selectors:[["app-products"]],decls:2,vars:0,template:function(t,a){t&1&&(n(0,"p"),p(1,"products works!"),s())},encapsulation:2})};export{c as ProductsComponent};

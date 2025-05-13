@@ -1,0 +1,1 @@
+import{Hb as m,ab as o,pb as s,qb as n}from"./chunk-RQ4QXQ7R.js";var r=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["app-customers"]],decls:2,vars:0,template:function(e,c){e&1&&(s(0,"p"),m(1,"customers works!"),n())},encapsulation:2})};export{r as CustomersComponent};
