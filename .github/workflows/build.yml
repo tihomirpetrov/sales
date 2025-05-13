@@ -1,10 +1,11 @@
 name: Build and Test
 
+# Trigger workflow on push to main and pull requests
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
   build:
@@ -26,4 +27,8 @@ jobs:
       run: npm run build
     
     - name: Test
-      run: npm test
+      run: |
+        export CHROME_BIN=/usr/bin/google-chrome
+        export DISPLAY=:99
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+        npm test -- --browsers=ChromeHeadless --watch=false

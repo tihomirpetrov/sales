@@ -1,2 +1,9 @@
 node_modules
 /.angular/*
+
+# Angular cache
+.angular/cache/
+
+# IDE files
+.idea/
+.vscode/
