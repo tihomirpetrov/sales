@@ -4,12 +4,18 @@ on:
   push:
     branches: [ main, master ]
 
+# Add permissions block
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     
     - name: Setup Node.js
       uses: actions/setup-node@v3
@@ -26,5 +32,6 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        folder: dist/sales # Update this path based on your Angular project's output directory
+        folder: dist/sales
         branch: gh-pages
+        token: ${{ secrets.DEPLOY_TOKEN }}
