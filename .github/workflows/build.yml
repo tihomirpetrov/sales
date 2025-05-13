@@ -1,5 +1,6 @@
 name: Build and Test
 
+# Trigger workflow on push to main and pull requests
 on:
   push:
     branches: [ main ]
