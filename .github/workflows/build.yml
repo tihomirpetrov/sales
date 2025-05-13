@@ -3,9 +3,9 @@ name: Build and Test
 # Trigger workflow on push to main and pull requests
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
 
 jobs:
   build:
