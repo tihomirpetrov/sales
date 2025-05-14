@@ -50,6 +50,16 @@ import { AuthService } from '../../services/auth.service';
             <span>Нова продажба</span>
           </button>
         </mat-menu>
+        <button mat-button [matMenuTriggerFor]="deliveryMenu" routerLinkActive="active">
+          <mat-icon>local_shipping</mat-icon>
+          Доставки
+        </button>
+        <mat-menu #deliveryMenu="matMenu">
+          <button mat-menu-item routerLink="/purchases/new">
+            <mat-icon>add_shopping_cart</mat-icon>
+            <span>Нова доставка</span>
+          </button>
+        </mat-menu>
       </nav>
 
       <span class="spacer"></span>

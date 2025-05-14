@@ -1,4 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Material form field adjustments */
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+/* Table styles */
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+/* Form field spacing */
+.mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+/* Button spacing */
+.me-2 {
+  margin-right: 0.5rem;
+}
+
+/* Text alignment */
+.text-end {
+  text-align: end;
+}
+
+/* Container padding */
+.container-fluid {
+  padding: 20px;
+}

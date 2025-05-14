@@ -39,6 +39,10 @@ export const routes: Routes = [
         component: SaleCreateComponent
       },
       {
+        path: 'purchases/new',
+        loadComponent: () => import('./purchases/delivery-create/delivery-create.component').then(m => m.DeliveryCreateComponent)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
