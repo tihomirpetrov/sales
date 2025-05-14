@@ -91,13 +91,12 @@
       <div class="col-1">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Цена с ДДС</mat-label>
-          <input matInput formControlName="priceWithVat" readonly [value]="item.get('priceWithVat')?.value | currencyBgn">
-        </mat-form-field>
+          <input matInput type="text" formControlName="priceWithVat" readonly [value]="item.get('priceWithVat')?.value | currencyBgn"></mat-form-field>
       </div>
       <div class="col-1">
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Общо</mat-label>
-          <input matInput formControlName="total" readonly [value]="item.get('total')?.value | currencyBgn">
+          <input matInput type="text" formControlName="total" readonly [value]="item.get('total')?.value | currencyBgn">
         </mat-form-field>
       </div>
       <div class="col-1 d-flex" style="height: 56px;">

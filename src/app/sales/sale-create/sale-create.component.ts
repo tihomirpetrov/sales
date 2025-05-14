@@ -25,7 +25,7 @@ interface Product {
   code: string;
   name: string;
   unit: string;
-  priceWithoutVat: number;
+  priceWithVat: number;
   vatPercent: number;
 }
 
@@ -70,9 +70,12 @@ export class SaleCreateComponent {
 
   // Примерни продукти
   products: Product[] = [
-    { code: 'P001', name: 'Авокадо', unit: 'бр.', priceWithoutVat: 5.00, vatPercent: 20 },
-    { code: 'P002', name: 'Ябълка', unit: 'кг.', priceWithoutVat: 2.50, vatPercent: 20 },
-    { code: 'P003', name: 'Круша', unit: 'кг.', priceWithoutVat: 3.00, vatPercent: 20 }
+    { code: 'P001', name: 'Авокадо', unit: 'бр.', priceWithVat: 6.00, vatPercent: 20 },
+    { code: 'P002', name: 'Ябълка', unit: 'кг.', priceWithVat: 3.00, vatPercent: 20 },
+    { code: 'P003', name: 'Круша', unit: 'кг.', priceWithVat: 3.60, vatPercent: 20 },
+    { code: 'P004', name: 'Skip течен 1.7 l', unit: 'бр.', priceWithVat: 17.00, vatPercent: 20 },
+    { code: 'P005', name: 'Ariel течен 2.5 l', unit: 'бр.', priceWithVat: 25.50, vatPercent: 20 },
+    { code: 'P006', name: 'Nivea гел за бръснене', unit: 'бр.', priceWithVat: 6.90, vatPercent: 20 }
   ];
 
   paymentTypes = [
@@ -145,7 +148,7 @@ export class SaleCreateComponent {
       unit: [''],
       priceWithoutVat: [0, Validators.required],
       vatPercent: [20, Validators.required],
-      priceWithVat: [{ value: 0, disabled: true }],
+      priceWithVat: [0, Validators.required],
       total: [{ value: 0, disabled: true }]
     });
     if (item instanceof FormGroup) {
@@ -155,10 +158,11 @@ export class SaleCreateComponent {
     }
     // Subscribe to product changes to auto-fill fields
     item.get('product')!.valueChanges.subscribe(() => this.updateItemValues(item, true));
-    // Subscribe to quantity, vatPercent, priceWithoutVat to update only totals
-    item.get('quantity')!.valueChanges.subscribe(() => this.updateItemValues(item, false));
+    // Subscribe to priceWithVat and vatPercent to recalculate priceWithoutVat
+    item.get('priceWithVat')!.valueChanges.subscribe(() => this.updateItemValues(item, false));
     item.get('vatPercent')!.valueChanges.subscribe(() => this.updateItemValues(item, false));
-    item.get('priceWithoutVat')!.valueChanges.subscribe(() => this.updateItemValues(item, false));
+    // Subscribe to quantity to update only totals
+    item.get('quantity')!.valueChanges.subscribe(() => this.updateItemValues(item, false));
     this.updateItemValues(item, true);
     this.updateProductFilters();
     this.form.updateValueAndValidity();
@@ -198,24 +202,25 @@ export class SaleCreateComponent {
     if (updateAll && product) {
       item.patchValue({
         unit: product.unit,
-        priceWithoutVat: Number(product.priceWithoutVat.toFixed(2)),
-        vatPercent: Number(product.vatPercent.toFixed(2))
+        vatPercent: product.vatPercent,
+        priceWithVat: Number(product.priceWithVat.toFixed(2)),
       }, { emitEvent: false });
     }
-    const quantity = item.get('quantity')!.value || 1;
-    const priceWithoutVat = Number(item.get('priceWithoutVat')!.value || 0);
+    // Always recalculate priceWithoutVat from priceWithVat and vatPercent
+    const priceWithVat = Number(item.get('priceWithVat')!.value || 0);
     const vatPercent = Number(item.get('vatPercent')!.value || 0);
-    const priceWithVat = Number((priceWithoutVat * (1 + vatPercent / 100)).toFixed(2));
+    const priceWithoutVat = vatPercent ? Number((priceWithVat / (1 + vatPercent / 100)).toFixed(2)) : priceWithVat;
+    const quantity = item.get('quantity')!.value || 1;
     const total = Number((priceWithVat * quantity).toFixed(2));
     item.patchValue({
-      priceWithVat,
+      priceWithoutVat,
       total
     }, { emitEvent: false });
     this.form.updateValueAndValidity();
   }
 
   get totalWithoutVat(): number {
-    return Number(this.items.controls.reduce((sum, item) => 
+    return Number(this.items.controls.reduce((sum, item) =>
       sum + (Number(item.get('priceWithoutVat')!.value || 0) * (item.get('quantity')!.value || 1)), 0).toFixed(2));
   }
 
@@ -229,7 +234,7 @@ export class SaleCreateComponent {
   }
 
   get totalWithVat(): number {
-    return Number(this.items.controls.reduce((sum, item) => 
+    return Number(this.items.controls.reduce((sum, item) =>
       sum + (Number(item.get('total')!.value || 0)), 0).toFixed(2));
   }
 
@@ -322,10 +327,11 @@ export class SaleCreateComponent {
         item = this.items.at(this.items.length - 1);
         itemIndex = this.items.length - 1;
       }
-      item.patchValue({ 
+      item.patchValue({
         product: product.code,
         unit: product.unit,
-        priceWithoutVat: Number(product.priceWithoutVat.toFixed(2)),
+        priceWithVat: Number(product.priceWithVat.toFixed(2)),
+        priceWithoutVat: Number((product.priceWithVat / (1 + product.vatPercent / 100)).toFixed(2)),
         vatPercent: Number(product.vatPercent.toFixed(2)),
         quantity: 1
       });

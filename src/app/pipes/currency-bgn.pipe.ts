@@ -1,4 +1,3 @@
-// MOVE FILE to ../pipes/currency-bgn.pipe.ts
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
