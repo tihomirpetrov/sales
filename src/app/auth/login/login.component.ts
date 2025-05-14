@@ -37,16 +37,13 @@ export class LoginComponent {
   login() {
     if (this.form.valid) {
       const { username, password } = this.form.value;
-      console.log('Login attempt with:', { username, password });
-      
+
       this.authService.login({ username, password }).subscribe({
         next: (response) => {
-          console.log('Login successful, response:', response);
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
           console.error('Login failed:', error);
-          // Тук можеш да добавиш error handling
         }
       });
     }

@@ -22,7 +22,7 @@ import { AuthService } from '../../services/auth.service';
   template: `
     <mat-toolbar color="primary">
       <span>Sales System</span>
-      
+
       <nav class="nav-links">
         <a mat-button routerLink="/dashboard" routerLinkActive="active">
           <mat-icon>dashboard</mat-icon>
@@ -36,10 +36,20 @@ import { AuthService } from '../../services/auth.service';
           <mat-icon>inventory_2</mat-icon>
           Продукти
         </a>
-        <a mat-button routerLink="/sales" routerLinkActive="active">
+        <button mat-button [matMenuTriggerFor]="salesMenu" routerLinkActive="active">
           <mat-icon>shopping_cart</mat-icon>
           Продажби
-        </a>
+        </button>
+        <mat-menu #salesMenu="matMenu">
+          <button mat-menu-item routerLink="/sales">
+            <mat-icon>shopping_cart</mat-icon>
+            <span>Всички продажби</span>
+          </button>
+          <button mat-menu-item routerLink="/sales/new">
+            <mat-icon>add_shopping_cart</mat-icon>
+            <span>Нова продажба</span>
+          </button>
+        </mat-menu>
       </nav>
 
       <span class="spacer"></span>
@@ -61,7 +71,7 @@ import { AuthService } from '../../services/auth.service';
           </button>
         </mat-menu>
       </ng-container>
-      
+
       <button mat-button (click)="logout()">
         <mat-icon>exit_to_app</mat-icon>
         Изход
@@ -95,11 +105,9 @@ export class HeaderComponent {
   private router = inject(Router);
 
   constructor() {
-    // Debug info
-    console.log('Is admin:', this.authService.isAdmin());
   }
 
   logout() {
     this.authService.logout();
   }
-} 
+}

@@ -1,0 +1,73 @@
+table.mat-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th.mat-header-cell, td.mat-cell {
+  padding: 4px 4px;
+}
+
+th.product-col, td.product-col {
+  min-width: 140px;
+  width: 20%;
+}
+
+th.qty-col, td.qty-col,
+th.unit-col, td.unit-col,
+th.price-col, td.price-col,
+th.vat-col, td.vat-col,
+th.pricew-col, td.pricew-col,
+th.total-col, td.total-col {
+  width: 60px !important;
+  max-width: 70px !important;
+  min-width: 50px !important;
+  text-align: right;
+}
+
+mat-form-field {
+  width: 100%;
+  margin: 0;
+  font-size: 13px;
+}
+
+.actions {
+  margin-top: 12px;
+}
+
+.sale-form .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.sale-form .form-row mat-form-field {
+  flex: 1 1 180px;
+  min-width: 140px;
+  max-width: 260px;
+}
+
+@media (max-width: 900px) {
+  .sale-form .form-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .sale-form .form-row mat-form-field {
+    max-width: 100%;
+  }
+}
+
+.sale-form .row.align-items-end,
+.sale-form .row.align-items-center {
+  min-height: 56px;
+}
+
+.sale-form .mat-icon-button {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
