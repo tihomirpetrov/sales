@@ -9,6 +9,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthService} from '../../core/services/auth.service';
+import {HeaderComponent} from '../../core/components/header/header.component';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ import {AuthService} from '../../core/services/auth.service';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    HeaderComponent
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
